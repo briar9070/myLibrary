@@ -16,7 +16,25 @@ function CreateBook (title,author,pages,read) {
     }
  }
 let theHobbit = new CreateBook("The Hobbit", "JRR Tolkien", 310, "yes" );
+let harryPotter = new CreateBook("The Philosipher's Stone", " JK Rowling", 223, "yes");
+let thursdayMurderClub = new CreateBook("The Thursday Murder Club", "Richard Osman", 400, "yes");
 
 addBookToLibrary(theHobbit);
+addBookToLibrary(harryPotter);
+addBookToLibrary(thursdayMurderClub);
 console.table(myLibrary);
-//console.log(theHobbit.bookInfo());
+
+
+let libraryContainer = document.querySelector("#libraryContainer");
+
+function addBookToDom (bookName){
+    let newBookCard= document.createElement("div");
+    newBookCard.classList.add("bookCard");
+    libraryContainer.appendChild(newBookCard);
+    for (const key in bookName) {
+        let newDomBook = document.createElement("div");
+        newDomBook.textContent = `${key}:${bookName[key]}`;
+        newBookCard.appendChild(newDomBook);
+    }
+    
+}
