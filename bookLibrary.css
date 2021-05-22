@@ -1,0 +1,14 @@
+#libraryContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    padding: 30px;
+
+}
+
+.newBook {
+    padding: 20px;
+    margin: 20px;
+    border: solid black 5px;
+    border-radius: 5px;
+}
