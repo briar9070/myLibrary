@@ -28,9 +28,9 @@ console.table(myLibrary);
 let libraryContainer = document.querySelector("#libraryContainer");
 
 function addBookToDom (bookName){
-    let newBookCard= document.createElement("div");
-    newBookCard.classList.add("bookCard");
-    libraryContainer.appendChild(newBookCard);
+    let newBookCard= document.createElement("div"); //creating a blank div. This will create a single div for each book to live in individually.
+    newBookCard.classList.add(`newBook`); //adding on a class so that they can all be referenced in the CSS sheet. uses the book name so they can be individually deleted later on
+    libraryContainer.appendChild(newBookCard); //attaches the new div to the overarching library container.
     for (const key in bookName) {
         let newDomBook = document.createElement("div");
         newDomBook.textContent = `${key}:${bookName[key]}`;
