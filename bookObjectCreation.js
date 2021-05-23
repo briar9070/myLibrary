@@ -38,3 +38,15 @@ function addBookToDom (bookName){
     }
     
 }
+
+let addNewBookButton = document.querySelector("#addNewBookButton");
+let formDiv = document.querySelector("#formContainer");
+
+addNewBookButton.addEventListener('click', () => {
+    if (formDiv.style.display === 'none'){
+        formDiv.style.display = 'block';
+    }
+    else {
+        formDiv.style.display = 'none';
+    }
+})

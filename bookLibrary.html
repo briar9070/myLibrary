@@ -14,6 +14,22 @@
 
 <body>
     <button id="addNewBookButton">+</button>
+    <div id="formContainer" style="display: none;">
+        <form action=""> 
+            <label for='bookName'>Book Name: </label>
+            <input type='text' id='bookName' name="bookName"> <br>
+            <label for='authorName'>Author Name: </label>
+            <input type='text' id='authorName' name="authorName"><br>
+            <label for='numberOfPages'>Number of Pages: </label>
+            <input type='text' id='numberOfPages' name="numberOfPages"><br>
+            <input type="radio" id="bookRead" name="bookReadStatus" value="yes">
+            <label for="bookRead">Read</label>
+            <input type="radio" id="bookUnread" name="bookReadStatus" value="no">
+            <label for="bookUnread">Unread</label><br>
+            <button id="submitNewBookButton">Add New Book!</button>
+        </form>
+    </div>
+    
 <div id="libraryContainer">
 
 

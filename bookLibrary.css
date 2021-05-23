@@ -27,3 +27,12 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+
+#formContainer {
+    width: 300px;
+    height: 200px;
+    background-color: lightgreen;
+    border: solid black 3px;
+    margin: 0 auto;
+    text-align: center;
+}
