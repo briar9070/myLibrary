@@ -15,17 +15,15 @@
 <body>
     <button id="addNewBookButton">+</button>
     <div id="formContainer" style="display: none;">
-        <form action=""> 
+        <form id="addBookForm" action=""> 
             <label for='bookName'>Book Name: </label>
-            <input type='text' id='bookName' name="bookName"> <br>
+            <input type='text' id='bookName' name="bookName" required> <br>
             <label for='authorName'>Author Name: </label>
-            <input type='text' id='authorName' name="authorName"><br>
+            <input type='text' id='authorName' name="authorName" required><br>
             <label for='numberOfPages'>Number of Pages: </label>
-            <input type='text' id='numberOfPages' name="numberOfPages"><br>
-            <input type="radio" id="bookRead" name="bookReadStatus" value="yes">
-            <label for="bookRead">Read</label>
-            <input type="radio" id="bookUnread" name="bookReadStatus" value="no">
-            <label for="bookUnread">Unread</label><br>
+            <input type='text' id='numberOfPages' name="numberOfPages" required><br>
+            <label for="bookRead">Read?</label>
+            <input type="checkbox" id="bookRead" name="bookReadStatus" value="Yes"> <br>       
             <button id="submitNewBookButton">Add New Book!</button>
         </form>
     </div>

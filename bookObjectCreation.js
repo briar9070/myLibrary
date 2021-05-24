@@ -1,10 +1,10 @@
 let myLibrary = []; //empty array to store the inputted books.
 
-function CreateBook (title,author,pages,read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
+function CreateBook (Title,Author,Pages,Read) {
+    this.Title = Title
+    this.Author = Author
+    this.Pages = Pages
+    this.Read = Read
     
 }
  function addBookToLibrary (bookToAdd){
@@ -24,7 +24,7 @@ addBookToLibrary(harryPotter);
 addBookToLibrary(thursdayMurderClub);
 console.table(myLibrary);
 
-
+//adding book to the DOM. Each created item has its own card with the class 'newBook'
 let libraryContainer = document.querySelector("#libraryContainer");
 
 function addBookToDom (bookName){
@@ -33,7 +33,7 @@ function addBookToDom (bookName){
     libraryContainer.appendChild(newBookCard); //attaches the new div to the overarching library container.
     for (const key in bookName) {
         let newDomBook = document.createElement("div");
-        newDomBook.textContent = `${key}:${bookName[key]}`;
+        newDomBook.textContent = `${key}: ${bookName[key]}`;
         newBookCard.appendChild(newDomBook);
     }
     
@@ -50,3 +50,27 @@ addNewBookButton.addEventListener('click', () => {
         formDiv.style.display = 'none';
     }
 })
+
+//Adding eventlistener to the submit new book button. Will invoke addBookFromButton. DOMContentLoaded means the 
+document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('submitNewBookButton').addEventListener('click', addBookFromButton);
+})
+
+function addBookFromButton(e){
+    e.preventDefault();
+    title = document.getElementById('bookName').value;
+    author = document.getElementById('authorName').value;
+    pages = document.getElementById('numberOfPages').value;
+    if (document.getElementById('bookRead').checked == true){
+        read = 'Yes';
+    }
+    else read = 'No';
+  
+
+    let newBook = new CreateBook(title,author,pages,read);
+    addBookToDom(newBook);
+    document.getElementById('bookName').value = "";
+    document.getElementById('authorName').value = "";
+    pages = document.getElementById('numberOfPages').value = "";
+    document.getElementById('bookRead').checked = false;
+}
