@@ -1,5 +1,7 @@
 let myLibrary = []; //empty array to store the inputted books.
 
+let identNumber = 1;
+
 function CreateBook (Title,Author,Pages,Read) {
     this.Title = Title
     this.Author = Author
@@ -30,20 +32,30 @@ let libraryContainer = document.querySelector("#libraryContainer");
 function addBookToDom (bookName){
     let newBookCard= document.createElement("div"); //creating a blank div. This will create a single div for each book to live in individually.
     newBookCard.classList.add(`newBook`); //adding on a class so that they can all be referenced in the CSS sheet. uses the book name so they can be individually deleted later on
+    newBookCard.setAttribute('id',`newBook ${identNumber}`);
     libraryContainer.appendChild(newBookCard); //attaches the new div to the overarching library container.
-    for (const key in bookName) {
+    
+    let cancelButton = document.createElement('button'); //adding in the x button in above the book info.
+    cancelButton.classList.add('removeEntry');
+    cancelButton.setAttribute('id',`removeThisEntry ${identNumber}`)
+    cancelButton.textContent= 'X';
+    newDomBook = document.getElementById(`newBook ${identNumber}`);
+    newDomBook.appendChild(cancelButton);
+    
+    for (const key in bookName) { //cycling through all items in the proposed object and adding them to their own div
         let newDomBook = document.createElement("div");
+        newDomBook.setAttribute('id','inputtedData');
         newDomBook.textContent = `${key}: ${bookName[key]}`;
         newBookCard.appendChild(newDomBook);
     }
-    
+    return identNumber++;
 }
 
-let addNewBookButton = document.querySelector("#addNewBookButton");
-let formDiv = document.querySelector("#formContainer");
+let addNewBookButton = document.querySelector("#addNewBookButton"); //defining the new book button. The 'plus' on the main page.
+let formDiv = document.querySelector("#formContainer"); //selecting the whole form
 
 addNewBookButton.addEventListener('click', () => {
-    if (formDiv.style.display === 'none'){
+    if (formDiv.style.display === 'none'){ //if the form is invisible (none) it will be changed to block. and vice verca in the else
         formDiv.style.display = 'block';
     }
     else {
@@ -52,24 +64,24 @@ addNewBookButton.addEventListener('click', () => {
 })
 
 //Adding eventlistener to the submit new book button. Will invoke addBookFromButton. DOMContentLoaded means the 
-document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('submitNewBookButton').addEventListener('click', addBookFromButton);
+document.addEventListener('DOMContentLoaded', function(){ //DOMContentLoaded is once the page is loaded. once page is loaded the clock is added to the submit new button
+    document.getElementById('submitNewBookButton').addEventListener('click', addBookFromButton); //calls below function. Note that brackets are not required on the function
 })
 
 function addBookFromButton(e){
-    e.preventDefault();
-    title = document.getElementById('bookName').value;
+    e.preventDefault(); //prevents the button from doing it's normal stuff and submitting the data to the ether
+    title = document.getElementById('bookName').value; // once button pressed, reaches into the designated input and pull out the .value
     author = document.getElementById('authorName').value;
     pages = document.getElementById('numberOfPages').value;
-    if (document.getElementById('bookRead').checked == true){
+    if (document.getElementById('bookRead').checked == true){ //check boxes have boolean for if checked. 
         read = 'Yes';
     }
     else read = 'No';
   
 
     let newBook = new CreateBook(title,author,pages,read);
-    addBookToDom(newBook);
-    document.getElementById('bookName').value = "";
+    addBookToDom(newBook); //adding the new book to the DOM
+    document.getElementById('bookName').value = ""; //the below clears the input values in the form. without this the old values stay meaning the user has to delete them
     document.getElementById('authorName').value = "";
     pages = document.getElementById('numberOfPages').value = "";
     document.getElementById('bookRead').checked = false;
