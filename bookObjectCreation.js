@@ -41,6 +41,14 @@ function addBookToDom (bookName){
     cancelButton.textContent= 'X';
     newDomBook = document.getElementById(`newBook ${identNumber}`);
     newDomBook.appendChild(cancelButton);
+
+    //need to add in the event listener as the cancel button is added to the DOM
+    cancelButton.addEventListener('click', function(e){
+        thisButton = e.originalTarget; //pulls out the button in the Dom
+        elementToDelete = thisButton.parentElement; //pulls out the element which is parent to thisButton.
+        elementToDelete.remove() //item to remove is on the left! no need to input to the function
+        console.log(e);
+    });
     
     for (const key in bookName) { //cycling through all items in the proposed object and adding them to their own div
         let newDomBook = document.createElement("div");
@@ -86,3 +94,14 @@ function addBookFromButton(e){
     pages = document.getElementById('numberOfPages').value = "";
     document.getElementById('bookRead').checked = false;
 }
+
+//adding event listener to the delete button with the function of deleting the parent node of event.
+/*let parentElementToDelete = document.get
+let cancelButtons = document.querySelectorAll('.removeEntry');
+cancelButtons.forEach(function(cancelButton){
+    cancelButton.addEventListener('click', deleteParentNode,false)
+})
+
+function deleteParentNode (e){
+    e.parentNode.parentNode.removeChild(e.parentNode);
+} */
