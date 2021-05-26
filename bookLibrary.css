@@ -4,8 +4,10 @@ body {
 #libraryContainer {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 95%;
     padding: 30px;
+    justify-self: center;
+    justify-content: center;
 
 }
 
@@ -15,7 +17,7 @@ body {
     border: solid black 5px;
     border-radius: 5px;
     background-color: lightgoldenrodyellow;
-    width: 300px;
+    width: 150px;
 }
 
 #addNewBookButton {

@@ -56,12 +56,27 @@ function addBookToDom (bookName){
         newDomBook.textContent = `${key}: ${bookName[key]}`;
         newBookCard.appendChild(newDomBook);
     }
-    let markReadButton = document.createElement('button'); //adding in the x button in above the book info.
+    let markReadButton = document.createElement('button'); //adding in the mark as read button to the right of book info.
     markReadButton.classList.add('markRead');
     markReadButton.setAttribute('id',`markRead ${identNumber}`)
-    markReadButton.textContent= 'Read!';
+    markReadButton.textContent= 'Toggle Read Status';
     newDomBook = document.getElementById(`newBook ${identNumber}`);
     newDomBook.appendChild(markReadButton);
+    
+    //adding event listener to the button
+    markReadButton.addEventListener('click', function (e){
+        let thisBooksClearID = e.id;
+        let thisBooksParent = e.parentElement;
+        let readStatusTextContent = e.target.previousElementSibling.textContent;
+        if (readStatusTextContent == 'Read: Yes'){
+            e.target.previousElementSibling.textContent='Read: No'
+        }
+        else e.target.previousElementSibling.textContent='Read: Yes'
+    })
+    //adding event listener which will mark the item as read.
+    function markAsread (){
+
+    }
     return identNumber++;
 }
 
