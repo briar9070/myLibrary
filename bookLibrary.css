@@ -46,3 +46,11 @@ body {
     margin:0 auto;
     float: right;
 }
+
+.markRead {
+    border: solid black 2px;
+    border-radius: 5px;
+    display: block;
+    margin:0 auto;
+    float: right;
+}

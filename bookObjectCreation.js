@@ -56,6 +56,12 @@ function addBookToDom (bookName){
         newDomBook.textContent = `${key}: ${bookName[key]}`;
         newBookCard.appendChild(newDomBook);
     }
+    let markReadButton = document.createElement('button'); //adding in the x button in above the book info.
+    markReadButton.classList.add('markRead');
+    markReadButton.setAttribute('id',`markRead ${identNumber}`)
+    markReadButton.textContent= 'Read!';
+    newDomBook = document.getElementById(`newBook ${identNumber}`);
+    newDomBook.appendChild(markReadButton);
     return identNumber++;
 }
 
@@ -95,13 +101,3 @@ function addBookFromButton(e){
     document.getElementById('bookRead').checked = false;
 }
 
-//adding event listener to the delete button with the function of deleting the parent node of event.
-/*let parentElementToDelete = document.get
-let cancelButtons = document.querySelectorAll('.removeEntry');
-cancelButtons.forEach(function(cancelButton){
-    cancelButton.addEventListener('click', deleteParentNode,false)
-})
-
-function deleteParentNode (e){
-    e.parentNode.parentNode.removeChild(e.parentNode);
-} */
