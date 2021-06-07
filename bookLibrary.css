@@ -1,5 +1,6 @@
 body {
-    background-color: lightblue;
+    background-color: black;
+    font-family: 'Staatliches', cursive;
 }
 #libraryContainer {
     display: flex;
@@ -10,34 +11,42 @@ body {
     justify-content: center;
 
 }
-
+h1 {
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+}
 .newBook {
     padding: 20px;
     margin: 20px;
-    border: solid black 5px;
+    border: solid #FF6600 1px;
     border-radius: 5px;
-    background-color: lightgoldenrodyellow;
-    width: 150px;
+    background-color: rgb(92, 92, 92);
+    color: white;
+    width: 180px;
 }
 
 #addNewBookButton {
     font-size: 30px;
-    border: solid black 2px;
-    border-radius: 75px;
+    border: solid white 1px;
+    background-color: black;
+    border-radius: 5px;
     height: 75px;
     width: 75px;
     display: block;
     margin: 0 auto;
     text-align: center;
+    color: white;
 }
 
 #formContainer {
     width: 300px;
-    height: 150px;
-    background-color: lightgreen;
-    border: solid black 3px;
+    height: 130px;
+    background-color: rgb(92, 92, 92);
+    border: solid white 3px;
+    border-radius: 5px;
     margin: 0 auto;
-    
+    color: white;
     padding: 15px;
 }
 
@@ -55,4 +64,10 @@ body {
     display: block;
     margin:0 auto;
     float: right;
+}
+
+#submitNewBookButton {
+    margin: 0 auto;
+    text-align: center;
+    display: block;
 }
