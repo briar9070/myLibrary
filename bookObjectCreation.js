@@ -1,6 +1,7 @@
 let myLibrary = []; //empty array to store the inputted books.
 
-let identNumber = 1;
+let identNumber;
+let newIdentNumber;
 
 function CreateBook (Title,Author,Pages,Read) {
     this.Title = Title
@@ -24,7 +25,7 @@ let thursdayMurderClub = new CreateBook("The Thursday Murder Club", "Richard Osm
 addBookToLibrary(theHobbit);
 addBookToLibrary(harryPotter);
 addBookToLibrary(thursdayMurderClub);
-console.table(myLibrary);
+//console.table(myLibrary);
 
 //adding book to the DOM. Each created item has its own card with the class 'newBook'
 let libraryContainer = document.querySelector("#libraryContainer");
@@ -32,7 +33,7 @@ let libraryContainer = document.querySelector("#libraryContainer");
 function addBookToDom (bookName){
     let newBookCard= document.createElement("div"); //creating a blank div. This will create a single div for each book to live in individually.
     newBookCard.classList.add(`newBook`); //adding on a class so that they can all be referenced in the CSS sheet. uses the book name so they can be individually deleted later on
-    newBookCard.setAttribute('id',`newBook ${identNumber}`);
+    newBookCard.setAttribute('id',`newBook ${identNumber}`);    
     libraryContainer.appendChild(newBookCard); //attaches the new div to the overarching library container.
     
     let cancelButton = document.createElement('button'); //adding in the x button in above the book info.
@@ -47,12 +48,15 @@ function addBookToDom (bookName){
         thisButton = e.originalTarget; //pulls out the button in the Dom
         elementToDelete = thisButton.parentElement; //pulls out the element which is parent to thisButton.
         elementToDelete.remove() //item to remove is on the left! no need to input to the function
+        localStorage.setItem(`display ${bookNumber}`,`none`);
+        elementToDelete.remove() 
         console.log(e);
     });
     
     for (const key in bookName) { //cycling through all items in the proposed object and adding them to their own div
         let newDomBook = document.createElement("div");
         newDomBook.setAttribute('id','inputtedData');
+        localStorage.setItem(`newBook ${identNumber} ${key}`,`${key}: ${bookName[key]}`)
         newDomBook.textContent = `${key}: ${bookName[key]}`;
         newBookCard.appendChild(newDomBook);
     }
@@ -77,6 +81,8 @@ function addBookToDom (bookName){
     function markAsread (){
 
     }
+    newIdentNumber = identNumber+ 1;
+    localStorage.setItem(`identNumber`, `${newIdentNumber}`);
     return identNumber++;
 }
 
@@ -116,3 +122,116 @@ function addBookFromButton(e){
     document.getElementById('bookRead').checked = false;
 }
 
+//adding eventlistener to the page to detect if there is a bookcard in local storage and add the card if needed
+window.addEventListener('load', function (){
+    if (localStorage.getItem(`identNumber`) == null){
+        localStorage.setItem('identNumber',1);
+        identNumber = localStorage.getItem(`identNumber`);
+        
+    }
+    else {
+        identNumber = localStorage.getItem(`identNumber`);
+        
+    }
+    
+    for (let bookNumber = 1; bookNumber<200; bookNumber++){
+        if (localStorage.getItem(`display ${bookNumber}`) == 'none'){
+            
+        }
+        else if(localStorage.getItem(`newBook ${bookNumber} Author`) !== null){
+        addBookToDomFromLocal(bookNumber)
+
+        }
+        /*else {
+            return
+        }*/
+           
+    }
+    
+    
+})
+
+function addBookToDomFromLocal (bookNumber){
+    let newBookCard= document.createElement("div"); //creating a blank div. This will create a single div for each book to live in individually.
+    newBookCard.classList.add(`newBook`); //adding on a class so that they can all be referenced in the CSS sheet. uses the book name so they can be individually deleted later on
+    
+    newBookCard.setAttribute('id',`newBook ${bookNumber}`);    
+    libraryContainer.appendChild(newBookCard); //attaches the new div to the overarching library container.
+    
+    let cancelButton = document.createElement('button'); //adding in the x button in above the book info.
+    cancelButton.classList.add('removeEntry');
+    cancelButton.setAttribute('id',`removeThisEntry ${bookNumber}`)
+    cancelButton.textContent= 'X';
+    newDomBook = document.getElementById(`newBook ${bookNumber}`);
+    newDomBook.appendChild(cancelButton);
+
+    //need to add in the event listener as the cancel button is added to the DOM
+    cancelButton.addEventListener('click', function(e){
+        thisButton = e.originalTarget; //pulls out the button in the Dom
+        elementToDelete = thisButton.parentElement; //pulls out the element which is parent to thisButton.
+        elementToDelete.style.display='none';
+        localStorage.setItem(`display ${bookNumber}`,`none`);
+        elementToDelete.remove() //item to remove is on the left! no need to input to the function
+        
+        console.log(e);
+    });
+    
+    /* for (const key in bookName) { //cycling through all items in the proposed object and adding them to their own div
+        let newDomBook = document.createElement("div");
+        newDomBook.setAttribute('id','inputtedData');
+        localStorage.setItem(`newBook ${identNumber} ${key}`,`${key}: ${bookName[key]}`)
+        newDomBook.textContent = `${key}: ${bookName[key]}`;
+        newBookCard.appendChild(newDomBook);
+    }*/
+    let newDomBookAuthor = document.createElement('div');
+    newDomBookAuthor.setAttribute('id','inputtedData');
+    newDomBookAuthor.textContent = localStorage.getItem(`newBook ${bookNumber} Author`);
+    newBookCard.appendChild(newDomBookAuthor);
+
+    let newDomBookTitle = document.createElement('div');
+    newDomBookTitle.setAttribute('id','inputtedData');
+    newDomBookTitle.textContent = localStorage.getItem(`newBook ${bookNumber} Title`);
+    newBookCard.appendChild(newDomBookTitle);
+
+    let newDomBookPages = document.createElement('div');
+    newDomBookPages.setAttribute('id','inputtedData');
+    newDomBookPages.textContent = localStorage.getItem(`newBook ${bookNumber} Pages`);
+    newBookCard.appendChild(newDomBookPages);
+
+    let newDomBookRead = document.createElement('div');
+    newDomBookRead.setAttribute('id','inputtedData');
+    newDomBookRead.textContent = localStorage.getItem(`newBook ${bookNumber} Read`);
+    newBookCard.appendChild(newDomBookRead);
+
+    let markReadButton = document.createElement('button'); //adding in the mark as read button to the right of book info.
+    markReadButton.classList.add('markRead');
+    markReadButton.setAttribute('id',`markRead ${bookNumber}`)
+    markReadButton.textContent= 'Toggle Read Status';
+    newDomBook = document.getElementById(`newBook ${bookNumber}`);
+    newDomBook.appendChild(markReadButton);
+    
+    //adding event listener to the button
+    markReadButton.addEventListener('click', function (e){
+        let thisBooksClearID = e.id;
+        let thisBooksParent = e.parentElement;
+        let readStatusTextContent = e.target.previousElementSibling.textContent;
+        if (readStatusTextContent == 'Read: Yes'){
+            e.target.previousElementSibling.textContent='Read: No'
+        }
+        else e.target.previousElementSibling.textContent='Read: Yes'
+    })
+    //adding event listener which will mark the item as read.
+    function markAsread (){
+
+    }
+    newIdentNumber= identNumber++;
+    localStorage.setItem(`identNumber`, `${newIdentNumber}`);
+    return identNumber++;
+}
+
+let clearLocalStorage = document.getElementById(`clearLocal`);
+clearLocalStorage.addEventListener('click', function (){
+    localStorage.clear();
+    location.reload();
+
+})
